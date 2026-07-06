@@ -1,0 +1,82 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/checkpoints/
+*.log
+
+# ============================================================================
+# SECRETS & ENVIRONMENT (NEVER COMMIT!)
+# ============================================================================
+.env
+.env.local
+.env.*.local
+.env.production
+secrets/
+*.key
+*.pem
+*.p8
+
+# ============================================================================
+# PRODUCTION DEPLOYMENT FILES (Git-ignored but documented in .env.example)
+# ============================================================================
+your_project/.env                    # Your actual secrets
+your_project/.env.*                  # Local env overrides
+
+# ============================================================================
+# MONITORING & METRICS (Generated at runtime)
+# ============================================================================
+metrics/
+prometheus_data/
+*.metrics
+*.prom
+
+# ============================================================================
+# IDE & EDITOR
+# ============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================================================
+# DATABASE & CACHE (If using local Redis/SQLite for dev)
+# ============================================================================
+*.db
+*.sqlite
+*.sqlite3
+dump.rdb
+
+# ============================================================================
+# LOGS (Generated at runtime)
+# ============================================================================
+logs/
+*.log
+*.log.*
+
+# ============================================================================
+# DOCKER (If containerized)
+# ============================================================================
+docker-compose.override.yml
+
+# ============================================================================
+# CREDENTIALS & API KEYS (Various formats)
+# ============================================================================
+credentials.json
+token.json
+auth.json
+*.credentials
+PyPI-Recovery-Codes-*.txt
+*_credentials
+demo.txt

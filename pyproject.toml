@@ -1,0 +1,60 @@
+[project]
+name = "mcp-resilient"
+version = "0.0.1"
+description = "Drop-in reliability layer for MCP tool calls: adaptive retry, cost-aware circuit breaking, fallback chains, and observability."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "CK Rajput" }]
+keywords = ["mcp", "model-context-protocol", "reliability", "circuit-breaker", "retry", "agents", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+redis = ["redis>=5.0"]
+otel = ["opentelemetry-api>=1.20", "opentelemetry-sdk>=1.20"]
+prometheus = ["prometheus-client>=0.19"]
+cli = ["typer>=0.12", "pyyaml>=6.0"]
+dev = [
+    "pytest>=7.4",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[project.scripts]
+mcp-resilient = "mcp_resilient.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/ck-rajput/mcp-resilient"
+Repository = "https://github.com/ck-rajput/mcp-resilient"
+Changelog = "https://github.com/ck-rajput/mcp-resilient/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_resilient"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true

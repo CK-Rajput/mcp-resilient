@@ -1,0 +1,35 @@
+# Multi-Tenant Configuration Example
+
+# Basic reliability settings (unchanged)
+tool_name: threat_intel
+retry:
+  enabled: true
+  max_attempts: 3
+  timeout_seconds: 10
+  backoff:
+    strategy: decorrelated_jitter
+
+circuit_breaker:
+  enabled: true
+  failure_threshold: 5
+  cooldown_seconds: 30
+  cost_budget: 100.0
+
+# NEW: Authentication & Authorization
+auth:
+  enabled: true
+  provider: static  # options: none, static, custom
+  require_token: true
+  token_header: "Authorization"
+
+# NEW: Rate Limiting
+rate_limit:
+  enabled: true
+  default_capacity: 100        # tokens per tenant bucket
+  default_refill_rate: 10.0    # tokens per second per tenant
+
+# Observability (unchanged)
+observability:
+  enabled: true
+  exporter: prometheus
+  log_level: INFO
