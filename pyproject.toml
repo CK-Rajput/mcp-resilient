@@ -1,6 +1,6 @@
 [project]
 name = "mcp-resilient"
-version = "0.0.1"
+version = "0.1.0"
 description = "Drop-in reliability layer for MCP tool calls: adaptive retry, cost-aware circuit breaking, fallback chains, and observability."
 readme = "README.md"
 requires-python = ">=3.10"
