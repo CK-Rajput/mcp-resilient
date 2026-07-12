@@ -105,56 +105,6 @@ class AuthConfig(BaseModel):
     token_header: str = Field(default="Authorization", description="Header to read token from.")
 
 
-class BulkheadConfig(BaseModel):
-    """Controls the bulkhead pattern to limit concurrent tool calls."""
-
-    enabled: bool = False
-    max_concurrent_calls: int = Field(default=10, ge=1, description="Max concurrent executions allowed.")
-    max_queue_time_seconds: float | None = Field(
-        default=None, description="Max time to wait in queue before timing out and failing."
-    )
-
-
-class HedgedConfig(BaseModel):
-    """Controls hedged requests to reduce tail latency by spawning parallel calls."""
-
-    enabled: bool = False
-    hedges: int = Field(default=2, ge=1, description="Number of backup concurrent requests to spawn.")
-    delay_seconds: float = Field(default=0.2, gt=0, description="Delay before spawning the next hedge request.")
-
-
-class AdaptiveTimeoutConfig(BaseModel):
-    """Controls dynamic timeouts based on latency histories percentiles."""
-
-    enabled: bool = False
-    percentile: float = Field(default=95.0, ge=50.0, le=99.9, description="Target percentile latency.")
-    min_timeout_seconds: float = Field(default=0.5, gt=0, description="Min floor timeout.")
-    max_timeout_seconds: float = Field(default=30.0, gt=0, description="Max ceiling timeout.")
-    window_size: int = Field(default=100, ge=10, description="Size of rolling history window.")
-
-
-class RetryBudgetConfig(BaseModel):
-    """Controls retry budgets to prevent retry storms."""
-
-    enabled: bool = False
-    ratio: float = Field(default=0.1, gt=0.0, le=1.0, description="Max retry ratio (e.g. 0.1 for 10% retries).")
-    min_requests: int = Field(default=10, ge=1, description="Min requests in window before enforcing budget.")
-    window_seconds: float = Field(default=60.0, gt=0, description="Sliding window duration in seconds.")
-
-
-class DeduplicationConfig(BaseModel):
-    """Controls request deduplication (single-flight execution coalescing)."""
-
-    enabled: bool = False
-
-
-class TracingConfig(BaseModel):
-    """Controls OpenTelemetry span auto tracing instrumentation."""
-
-    enabled: bool = False
-    tracer_name: str = Field(default="mcp-resilient", description="Name of the tracer.")
-
-
 class ReliabilityConfig(BaseModel):
     """Top-level config for a single tool wrapped by @mcp_reliable.
 
@@ -169,12 +119,6 @@ class ReliabilityConfig(BaseModel):
     observability: ObservabilityConfig = Field(default_factory=ObservabilityConfig)
     rate_limit: RateLimitConfig = Field(default_factory=RateLimitConfig)
     auth: AuthConfig = Field(default_factory=AuthConfig)
-    bulkhead: BulkheadConfig = Field(default_factory=BulkheadConfig)
-    hedged: HedgedConfig = Field(default_factory=HedgedConfig)
-    adaptive_timeout: AdaptiveTimeoutConfig = Field(default_factory=AdaptiveTimeoutConfig)
-    retry_budget: RetryBudgetConfig = Field(default_factory=RetryBudgetConfig)
-    deduplication: DeduplicationConfig = Field(default_factory=DeduplicationConfig)
-    tracing: TracingConfig = Field(default_factory=TracingConfig)
 
     @classmethod
     def from_yaml(cls, path: str) -> "ReliabilityConfig":

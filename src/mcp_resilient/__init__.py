@@ -14,12 +14,6 @@ from mcp_resilient.core.config import (
     RateLimitConfig,
     ReliabilityConfig,
     RetryConfig,
-    BulkheadConfig,
-    HedgedConfig,
-    AdaptiveTimeoutConfig,
-    RetryBudgetConfig,
-    DeduplicationConfig,
-    TracingConfig,
 )
 from mcp_resilient.core.decorator import mcp_reliable
 from mcp_resilient.core.exceptions import (
@@ -28,11 +22,9 @@ from mcp_resilient.core.exceptions import (
     FallbackExhaustedError,
     MCPResilientError,
     RetryExhaustedError,
-    BulkheadFullError,
 )
-from mcp_resilient.health import check_service_health
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 
 __all__ = [
     "mcp_reliable",
@@ -44,17 +36,9 @@ __all__ = [
     "ObservabilityConfig",
     "RateLimitConfig",
     "AuthConfig",
-    "BulkheadConfig",
-    "HedgedConfig",
-    "AdaptiveTimeoutConfig",
-    "RetryBudgetConfig",
-    "DeduplicationConfig",
-    "TracingConfig",
     "MCPResilientError",
     "CircuitOpenError",
     "RetryExhaustedError",
     "FallbackExhaustedError",
     "CostBudgetExceededError",
-    "BulkheadFullError",
-    "check_service_health",
 ]

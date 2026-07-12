@@ -36,7 +36,7 @@ class CircuitBreaker:
         state = await self.store.get_state(self.tool_name)
 
         if state.status == CircuitState.OPEN.value:
-            elapsed = time.time() - state.opened_at
+            elapsed = time.monotonic() - state.opened_at
             if elapsed < self.config.cooldown_seconds:
                 raise CircuitOpenError(self.tool_name, self.config.cooldown_seconds - elapsed)
             await self.store.transition(self.tool_name, CircuitState.HALF_OPEN.value)

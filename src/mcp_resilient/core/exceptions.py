@@ -45,12 +45,3 @@ class CostBudgetExceededError(MCPResilientError):
         self.spent = spent
         self.budget = budget
         super().__init__(f"Tool '{tool_name}' exceeded cost budget: ${spent:.4f} / ${budget:.4f}")
-
-
-class BulkheadFullError(MCPResilientError):
-    """Raised when the bulkhead queue or concurrency limit is full."""
-
-    def __init__(self, tool_name: str, limit: int):
-        self.tool_name = tool_name
-        self.limit = limit
-        super().__init__(f"Bulkhead for tool '{tool_name}' is full (max concurrency: {limit}).")

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from mcp_resilient import mcp_reliable, RetryConfig, ReliabilityConfig
+from mcp_resilient import mcp_reliable, RetryConfig
 from mcp_resilient.core.exceptions import RetryExhaustedError
 
 async def test_decorator_no_parentheses():

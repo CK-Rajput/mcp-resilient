@@ -12,7 +12,7 @@ class BreakerState:
     status: str = "closed"  # closed | open | half_open
     failure_count: int = 0
     cost_spent: float = 0.0
-    window_started_at: float = field(default_factory=time.time)
+    window_started_at: float = field(default_factory=time.monotonic)
     opened_at: float = 0.0
     half_open_calls: int = 0
 
@@ -64,7 +64,7 @@ class BreakerStateStore:
         self, tool_name: str, config: CircuitBreakerConfig, cost: float
     ) -> None:
         state = await self.get_state(tool_name)
-        now = time.time()
+        now = time.monotonic()
 
         if now - state.window_started_at > config.window_seconds:
             state.failure_count = 0
